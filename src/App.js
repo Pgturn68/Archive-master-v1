@@ -1,24 +1,53 @@
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
+import Notes from './pages/Notes'
+import Create from './pages/Create'
+import { createTheme, ThemeProvider } from '@material-ui/core'
+import { blue } from '@material-ui/core/colors'
+import Layout from './components/Layout'
+import Signup from './components/Signup'
 
-function App() {
+// import Sidebar from './components/Sidebar';
+ import Login from './components/Login'
+
+const theme = createTheme({
+  palette: {
+    secondary: blue
+  },
+  typography: {
+    fontFamily: 'Asap',
+    fontWeightLight: 400,
+    fontWeightRegular: 500,
+    fontWeightMedium: 600,
+    fontWeightBold: 700,
+  }
+})
+
+function App() {  
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    // <div className='App'>
+    //   <Login />
+    // </div>
+    <ThemeProvider theme={theme}>
+    {/* <Sidebar /> */}
+    <Router>
+      <Layout>
+        <Switch>
+          <Route exact path="/notes">
+            <Notes />
+          </Route>
+          <Route path="/create">
+            <Create />
+          </Route>
+          <Route path="/signup">
+            <Signup />
+          </Route>
+          <Route path="/">
+            <Login />
+          </Route>
+        </Switch>
+      </Layout>
+    </Router>
+    </ThemeProvider>
   );
 }
 
